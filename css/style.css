@@ -1,10 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Trirong');
 
+:root {
+  --accent: #14B8A6;
+  --accent-dark: #0F8F82;
+  --accent-soft: #F4F6F9;
+}
+
 * {
   box-sizing: border-box;
 }
 
-/* body */
+/* ---------------- BODY ---------------- */
 body {
   margin: 0;
   font-family: 'Trirong', serif;
@@ -15,46 +21,87 @@ body {
 
 p {
   padding: 10px;
+  margin: 0;
+  color: #14B8A6;
 }
 
-/* nav */
+/* ---------------- NAVIGATION ---------------- */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0.6rem 1.5rem;
   background-color: #FFFFFF;
-  border-bottom: 1px solid #DDD;
+  border-bottom: 2px solid var(--accent);
+}
+
+nav p {
+  margin: 0;
+  font-weight: 600;
 }
 
 nav a {
   text-decoration: none;
-  color: #4A5D73;
+  color: var(--accent);
   font-weight: 600;
+  position: relative;
 }
 
-/* header */
+/* animated underline */
+nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -3px;
+  background-color: var(--accent);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* ---------------- HEADER ---------------- */
 header {
   text-align: center;
-  padding: 3rem 1rem 1.5rem;
+  padding: 2.5rem 1rem 1.5rem;
+}
+h1{
+  color: #14B8A6;
+  padding: 10px;
 }
 
 header h1 {
   margin-bottom: 1rem;
-  font-size: 2.5rem;
+  font-size: 2.4rem;
+  color: var(--accent);
 }
 
-h1 {
-  padding: 10px;
+/* gradient accent line */
+header::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 4px;
+  margin: 1.5rem auto 0;
+  background: linear-gradient(90deg, var(--accent), #3DD6C6);
+  border-radius: 2px;
 }
 
-/* image and bio */
+/* ---------------- IMAGE + BIO ---------------- */
 .headshot {
-  width: 160px;
-  height: 160px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 50%;
-  border: 4px solid #DDD;
+  border: 4px solid var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.headshot:hover {
+  transform: scale(1.05);
 }
 
 .address {
@@ -66,9 +113,15 @@ h1 {
 .tagline {
   text-align: center;
   font-style: italic;
-  margin-bottom: 2rem;
+  background-color: var(--accent-soft);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  display: block;
+  margin: 1.5rem auto;
+  width: fit-content;
 }
 
+/* ---------------- DIVIDER ---------------- */
 hr {
   width: 70%;
   margin: 2rem auto;
@@ -76,25 +129,50 @@ hr {
   border-top: 1px solid #DDD;
 }
 
-/* education, honors and awards, skills, and leadership */
+/* ---------------- SECTIONS ---------------- */
 section {
   max-width: 900px;
   margin: 2rem auto;
   padding: 0 1.5rem;
 }
 
+/* subtle alternating background */
+section:nth-of-type(even) {
+  background-color: var(--accent-soft);
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+}
+
 section h2 {
-  border-left: 4px solid #4A5D73;
-  padding-left: 0.75rem;
-  margin-bottom: 1rem;
+  position: relative;
+  margin-bottom: 1.5rem;
   font-size: 1.4rem;
+  padding-bottom: 0.4rem;
+  color: var(--accent);
+}
+
+/* animated heading underline */
+section h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+section h2:hover::after {
+  width: 100px;
 }
 
 section a {
   text-decoration: none;
   color: #2A2727;
-
+  font-weight: 500;
 }
+
 dl dt {
   font-weight: bold;
 }
@@ -107,23 +185,43 @@ ul {
   padding-left: 1.25rem;
 }
 
+/* ---------------- PROJECT GRID ---------------- */
 .three-col {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
-/* projects */
+/* ---------------- CARDS ---------------- */
 .card {
   background-color: #FFFFFF;
   padding: 1.25rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-  transition: transform 0.2s ease;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* animated top accent bar */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), #3DD6C6);
+  transition: left 0.4s ease;
+}
+
+.card:hover::before {
+  left: 0;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
 }
 
 .projects {
@@ -132,12 +230,12 @@ ul {
   margin: 0.75rem 0;
 }
 
+/* ---------------- FORM ---------------- */
 .one-col {
   max-width: 500px;
   margin: 0 auto;
 }
 
-/* form */
 form p {
   display: flex;
   flex-direction: column;
@@ -149,30 +247,72 @@ input, textarea {
   border-radius: 6px;
   border: 1px solid #CCC;
   font-family: inherit;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 6px rgba(20, 184, 166, 0.35);
 }
 
 button {
-  background-color: #4A5D73;
+  background-color: var(--accent);
   color: #FFFFFF;
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
-  background-color: #3A4B5F;
+  background-color: var(--accent-dark);
+  box-shadow: 0 0 10px rgba(20, 184, 166, 0.4);
 }
 
-/* footer */
+/* ---------------- FOOTER ---------------- */
 footer {
   text-align: center;
-  padding: 1.5rem;
+  padding: 1.2rem;
   border-top: 1px solid #DDD;
   margin-top: 3rem;
 }
 
 footer a {
-  color: #4A5D73;
+  color: var(--accent);
   margin-left: 0.5rem;
+}
+
+/* ---------------- MOBILE RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+
+  nav {
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .headshot {
+    width: 120px;
+    height: 120px;
+  }
+
+  section {
+    padding: 0 1rem;
+  }
+
+  .three-col {
+    grid-template-columns: 1fr;
+  }
+
+  .tagline {
+    width: 90%;
+  }
 }
